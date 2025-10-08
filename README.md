@@ -1,9 +1,10 @@
 # SmartSpectraSwiftSDK iOS Examples
 
-Sample SwiftUI application showcasing two common integration patterns for the [SmartSpectra Swift SDK](https://github.com/Presage-Security/SmartSpectra):
+Sample SwiftUI application showcasing three integration patterns for the [SmartSpectra Swift SDK](https://github.com/Presage-Security/SmartSpectra):
 
 - **SmartSpectra Capture Experience** – Launch the SDK's built-in guided capture UX via `SmartSpectraView` with minimal configuration.
 - **Pulse Capture Form** – Trigger a capture flow, validate the returned reading, and drop the result into a read-only form field.
+- **Live Vitals Preview** – Run a lightweight capture loop with start/stop controls and rolling charts for pulse and breathing traces.
 
 ## Requirements
 
@@ -33,11 +34,13 @@ Sample SwiftUI application showcasing two common integration patterns for the [S
 
 ## Project Structure
 
-`SmartSpectraExamples/ContentView.swift` | Entry point that lists the available demos. Add your own examples to `ExampleCatalog` to make them appear automatically.
+`SmartSpectraExamples/ContentView.swift` | Entry point that lists the available demos and surfaces a quick link back to this GitHub repository. Add your own examples to `ExampleCatalog` to make them appear automatically.
 `SmartSpectraExamples/Examples/SmartSpectraExperience/SmartSpectraExperienceExampleView.swift` | Launches `SmartSpectraView` (the SDK’s guided UX) and surfaces a lightweight metrics summary from the shared SDK instance.
 `SmartSpectraExamples/Examples/PulseCaptureInForm/PulseFormExampleView.swift` | SwiftUI form demonstrating how to feed a confirmed pulse reading into a read-only form field.
 `SmartSpectraExamples/Examples/PulseCaptureInForm/PulseCaptureView.swift` | Reusable capture sheet that wraps `SmartSpectraSwiftSDK` / `SmartSpectraVitalsProcessor` and publishes progress, confidence, and resulting measurements.
 `SmartSpectraExamples/Examples/LiveVitalsPreview/LiveVitalsExampleView.swift` | Minimal capture loop that shows a live camera preview, start/stop button, and rolling pulse/breathing charts.
+`SmartSpectraExamples/Examples/LiveVitalsPreview/VitalsTracePlotView.swift` | Timeline-driven renderer that animates the vitals traces while recordings run.
+`SmartSpectraExamples/Examples/LiveVitalsPreview/VitalSample.swift` | Lightweight model used to plot vitals samples over time.
 `SmartSpectraExamples/Core/CameraPermissionGate.swift` | `ViewModifier` that prompts users for camera access when required.
 
 ## What’s Inside Each Demo
@@ -49,6 +52,7 @@ Sample SwiftUI application showcasing two common integration patterns for the [S
 - **Live Vitals Preview**
   - Spins up `SmartSpectraVitalsProcessor.shared` once on appear, then lets you start/stop recordings without reinitialising the processor.
   - Uses `VitalsPlotsOverlay` to render pulse and breathing rate traces in real time while the camera feed fills the background.
+  - `VitalsTracePlotView` extends the most recent sample between SDK updates so the charts stay responsive.
 
 - **Pulse Capture Form**
   - `PulseFormExampleView` owns the read-only field and launches a capture sheet.
@@ -60,6 +64,7 @@ Sample SwiftUI application showcasing two common integration patterns for the [S
 - Adjust `SmartSpectraExperienceExampleView.Config` to experiment with mode, camera position, or measurement duration.
 - The pulse form example stores the latest reading in `PulseCaptureReading` and formats it for display; you can replace the read-only view with your own form controls.
 - `PulseCaptureSession` wraps `SmartSpectraSwiftSDK.shared` and `SmartSpectraVitalsProcessor.shared`. Extend it if you need to stream additional metrics or surface custom status messages.
+- `LiveVitalsSession` demonstrates how to consume `SmartSpectraVitalsProcessor` and `SmartSpectraSwiftSDK` publishers directly. Tune the `windowSeconds` constant to adjust how much history each chart displays.
 
 ## Troubleshooting
 

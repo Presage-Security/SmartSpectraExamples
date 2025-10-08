@@ -9,11 +9,20 @@ import SwiftUI
 
 struct ContentView: View {
   private let catalog = ExampleCatalog.examples
+  private let repoURL = URL(string: "https://github.com/Presage-Security/SmartSpectraExamples")!
 
   /// Lists every demo registered in `ExampleCatalog` and routes to the matching showcase screen.
   var body: some View {
     NavigationStack {
       List {
+        Section {
+          Link(destination: repoURL) {
+            Label("Review the full demo code on GitHub", systemImage: "link")
+          }
+          .font(.subheadline)
+        }
+        .textCase(.none)
+
         Section("Available Examples") {
           ForEach(catalog) { example in
             NavigationLink(value: example.id) {
