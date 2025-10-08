@@ -32,17 +32,6 @@ Sample SwiftUI application showcasing three integration patterns for the [SmartS
 
 > **Heads up**: If you prefer API-key authentication over the portal configuration, call `SmartSpectraSwiftSDK.shared.setApiKey("YOUR_API_KEY")` early in your app lifecycle (e.g., in `configureSdk()` inside `SmartSpectraExperienceExampleView`).
 
-## Project Structure
-
-`SmartSpectraExamples/ContentView.swift` | Entry point that lists the available demos and surfaces a quick link back to this GitHub repository. Add your own examples to `ExampleCatalog` to make them appear automatically.
-`SmartSpectraExamples/Examples/SmartSpectraExperience/SmartSpectraExperienceExampleView.swift` | Launches `SmartSpectraView` (the SDK’s guided UX) and surfaces a lightweight metrics summary from the shared SDK instance.
-`SmartSpectraExamples/Examples/PulseCaptureInForm/PulseFormExampleView.swift` | SwiftUI form demonstrating how to feed a confirmed pulse reading into a read-only form field.
-`SmartSpectraExamples/Examples/PulseCaptureInForm/PulseCaptureView.swift` | Reusable capture sheet that wraps `SmartSpectraSwiftSDK` / `SmartSpectraVitalsProcessor` and publishes progress, confidence, and resulting measurements.
-`SmartSpectraExamples/Examples/LiveVitalsPreview/LiveVitalsExampleView.swift` | Minimal capture loop that shows a live camera preview, start/stop button, and rolling pulse/breathing charts.
-`SmartSpectraExamples/Examples/LiveVitalsPreview/VitalsTracePlotView.swift` | Timeline-driven renderer that animates the vitals traces while recordings run.
-`SmartSpectraExamples/Examples/LiveVitalsPreview/VitalSample.swift` | Lightweight model used to plot vitals samples over time.
-`SmartSpectraExamples/Core/CameraPermissionGate.swift` | `ViewModifier` that prompts users for camera access when required.
-
 ## What’s Inside Each Demo
 
 - **SmartSpectra Capture Experience**
