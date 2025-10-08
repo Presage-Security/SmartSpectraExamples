@@ -10,6 +10,7 @@ import SwiftUI
 struct ContentView: View {
   private let catalog = ExampleCatalog.examples
 
+  /// Lists every demo registered in `ExampleCatalog` and routes to the matching showcase screen.
   var body: some View {
     NavigationStack {
       List {
@@ -22,13 +23,15 @@ struct ContentView: View {
         }
       }
       .navigationTitle("SmartSpectra Examples")
-      // Resolve a destination for every registered sample so the list above can stay declarative.
+      // Keep the navigation switch in sync with `ExampleCatalog` whenever you add a new sample.
       .navigationDestination(for: Example.Identifier.self) { identifier in
         switch identifier {
         case .sdkExperience:
           SmartSpectraExperienceExampleView()
         case .pulseInput:
           PulseFormExampleView()
+        case .liveVitals:
+          LiveVitalsExampleView()
         }
       }
     }
@@ -38,6 +41,7 @@ struct ContentView: View {
 private struct ExampleRowView: View {
   let example: Example
 
+  /// Displays the summary for a demo inside the list of available examples.
   var body: some View {
     VStack(alignment: .leading, spacing: 6) {
       Text(example.title)
@@ -51,9 +55,11 @@ private struct ExampleRowView: View {
 }
 
 struct Example: Identifiable {
+  /// Unique identifiers that match the routes declared in the navigation destination below.
   enum Identifier: Hashable {
     case sdkExperience
     case pulseInput
+    case liveVitals
   }
 
   let id: Identifier
@@ -73,6 +79,11 @@ enum ExampleCatalog {
       id: .pulseInput,
       title: "Pulse Capture Form",
       summary: "Embed a pulse measurement step in a SwiftUI form and persist the confirmed reading."
+    ),
+    Example(
+      id: .liveVitals,
+      title: "Live Vitals Preview",
+      summary: "Show a live camera feed with start/stop controls and pulse/breathing charts."
     ),
   ]
 }

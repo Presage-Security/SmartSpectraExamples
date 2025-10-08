@@ -8,6 +8,7 @@
 import AVFoundation
 import SwiftUI
 
+/// View modifier that centralises camera permission prompts for capture-oriented screens.
 struct CameraPermissionGate: ViewModifier {
   @Environment(\.scenePhase) private var scenePhase
   @State private var showAlert = false
@@ -32,7 +33,7 @@ struct CameraPermissionGate: ViewModifier {
       lastReportedStatus = status
     }
     #if targetEnvironment(simulator)
-      // Simulator: do nothing, no permission required
+      // Simulator builds skip prompts because the capture SDK cannot record here.
       showAlert = false
     #else
       switch status {
@@ -49,9 +50,11 @@ struct CameraPermissionGate: ViewModifier {
 }
 
 extension View {
+  /// Apply the camera permission gate used by every capture demo in the catalog.
   func cameraPermissionGate() -> some View { modifier(CameraPermissionGate()) }
 }
 
+/// Convenience API that wraps the `AVCaptureDevice` permission flow for the sample app.
 enum CameraPermission {
   enum Status {
     case authorized

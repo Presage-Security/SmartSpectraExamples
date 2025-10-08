@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// Example application entry point that hosts the SDK-driven demo catalog.
 @main
 struct SmartSpectraExamplesApp: App {
   var body: some Scene {

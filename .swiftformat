@@ -1,0 +1,15 @@
+
+--indent 2
+--maxwidth 120
+--patternlet inline
+--stripunusedargs closure-only
+--trimwhitespace nonblank-lines
+--self init-only
+--semicolons never
+--wraparguments before-first
+--wrapcollections before-first
+--exponentcase lowercase
+--hexliterals lowercase
+--ranges no-space
+--shortoptionals always
+--header "//\n//  {file}\n//  SmartSpectraExamples\n//\n//  Copyright (c) {year} Presage Technologies. All rights reserved.\n//"

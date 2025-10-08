@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// Embeds a SmartSpectra pulse capture step inside a more traditional SwiftUI form workflow.
 struct PulseFormExampleView: View {
   @Environment(\.scenePhase) private var scenePhase
   @State private var latestReading: PulseCaptureReading?
@@ -126,13 +127,13 @@ private extension PulseFormExampleView {
   }
 }
 
-// Visual affordance that looks like a form text field while remaining read-only.
 private struct ReadOnlyMeasurementField: View {
   let title: String
   let value: String
   let unit: String?
   let placeholder: String
 
+  /// Styled container that mimics a text field while ensuring data always comes from the SDK.
   var body: some View {
     VStack(alignment: .leading, spacing: 6) {
       Text(title)

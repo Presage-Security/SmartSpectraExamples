@@ -146,8 +146,8 @@ private struct CameraPreview: View {
   }
 }
 
-@MainActor
 /// Small wrapper around the shared SDK singletons that keeps the capture view declarative.
+@MainActor
 private final class PulseCaptureSession: ObservableObject {
   @Published var previewImage: UIImage?
   @Published var statusMessage = "Ready to capture."
@@ -182,6 +182,7 @@ private final class PulseCaptureSession: ObservableObject {
     bindStreams()
   }
 
+  /// Configures SmartSpectra for pulse capture and primes the vitals processor.
   func prepareSession() {
     smartSpectra.setSmartSpectraMode(.continuous)
     smartSpectra.setCameraPosition(.front)
@@ -191,6 +192,7 @@ private final class PulseCaptureSession: ObservableObject {
     statusMessage = "Position the camera in front of the participant."
   }
 
+  /// Starts or stops recording depending on the current session state.
   func toggleRecording() {
     if isRecording {
       stopRecording()
@@ -200,10 +202,12 @@ private final class PulseCaptureSession: ObservableObject {
     }
   }
 
+  /// Returns the most recent confident reading once capture has stopped.
   func commitMeasurement() -> PulseCaptureReading? {
     measurement
   }
 
+  /// Stops recording, shuts down the processor, and clears shared SmartSpectra state.
   func teardown() {
     stopRecording()
     vitalsProcessor.stopProcessing()
